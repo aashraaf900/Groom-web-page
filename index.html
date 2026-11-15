@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#173b35" />
+  <title>Marriage Biodata</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">✦</span> জীবনসঙ্গী <small>BIODATA</small></a>
+    <nav>
+      <button class="nav-btn active" id="viewProfileBtn">বায়োডাটা</button>
+      <button class="nav-btn" id="adminOpenBtn">Admin Login</button>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section id="publicView">
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">A LITTLE ABOUT ME</p>
+          <h1>পরিচয়ের শুরু<br><em>একটি সুন্দর গল্পে</em></h1>
+          <p class="hero-sub">বিয়ের উদ্দেশ্যে ব্যক্তিগত পরিচিতি ও প্রয়োজনীয় তথ্য।</p>
+        </div>
+        <div class="hero-art"><span>✧</span><div class="art-ring"></div></div>
+      </div>
+      <div id="profileContent" class="profile-content">
+        <div class="loading">তথ্য লোড হচ্ছে...</div>
+      </div>
+      <p class="privacy-note">এই বায়োডাটার তথ্য সংশ্লিষ্ট ব্যক্তির সম্মতিতে শেয়ার করা হয়েছে।</p>
+    </section>
+
+    <section id="adminView" class="admin-view hidden">
+      <div class="admin-heading">
+        <div><p class="eyebrow">PRIVATE WORKSPACE</p><h1>Admin Panel</h1><p class="muted">বায়োডাটার তথ্য পরিচালনা করুন।</p></div>
+        <button id="logoutBtn" class="btn btn-light hidden">Logout</button>
+      </div>
+      <div id="loginCard" class="panel login-card">
+        <h2>Admin Login</h2>
+        <p class="muted">অনুমোদিত Admin account দিয়ে প্রবেশ করুন।</p>
+        <form id="loginForm">
+          <label>Email<input id="email" type="email" required autocomplete="username" placeholder="admin@example.com"></label>
+          <label>Password<input id="password" type="password" required autocomplete="current-password" placeholder="••••••••"></label>
+          <button class="btn btn-primary full" type="submit">Login</button>
+        </form>
+        <p id="loginMessage" class="message" aria-live="polite"></p>
+      </div>
+
+      <div id="editor" class="hidden">
+        <div class="status-row panel">
+          <div><strong>প্রোফাইল প্রকাশ</strong><p class="muted">প্রকাশ করলে User Panel-এ দেখা যাবে।</p></div>
+          <label class="switch"><input type="checkbox" id="published"><span></span></label>
+        </div>
+        <form id="biodataForm" class="panel editor-panel">
+          <div class="section-title"><div><p class="eyebrow">PROFILE</p><h2>Personal Information</h2></div><span class="step">01</span></div>
+          <div class="form-grid">
+            <label>পূর্ণ নাম<input id="full_name" placeholder="আপনার নাম"></label>
+            <label>জন্ম তারিখ<input id="date_of_birth" type="date"></label>
+            <label>উচ্চতা<input id="height" placeholder="যেমন: ৫ ফুট ৬ ইঞ্চি"></label>
+            <label>বৈবাহিক অবস্থা<input id="marital_status" placeholder="যেমন: অবিবাহিত"></label>
+            <label>পেশা<input id="profession" placeholder="আপনার পেশা"></label>
+            <label>ধর্ম (ঐচ্ছিক)<input id="religion" placeholder="ঐচ্ছিক"></label>
+          </div>
+
+          <div class="section-title section-gap"><div><p class="eyebrow">EDUCATION</p><h2>Educational Qualification</h2></div><span class="step">02</span></div>
+          <div id="educationFields" class="dynamic-list"></div>
+          <button type="button" class="btn btn-outline" id="addEducation">+ শিক্ষা যোগ করুন</button>
+
+          <div class="section-title section-gap"><div><p class="eyebrow">LOCATION</p><h2>Address Information</h2></div><span class="step">03</span></div>
+          <div class="form-grid">
+            <label>বর্তমান ঠিকানা<input id="present_address" placeholder="এলাকা, জেলা"></label>
+            <label>স্থায়ী ঠিকানা<input id="permanent_address" placeholder="এলাকা, জেলা"></label>
+          </div>
+
+          <div class="section-title section-gap"><div><p class="eyebrow">PHOTOS</p><h2>Profile Photo</h2></div><span class="step">04</span></div>
+          <div class="photo-upload">
+            <img id="photoPreview" alt="Profile preview" src="https://placehold.co/160x190/f0eee7/66736d?text=Photo">
+            <div><label class="file-label">ছবি নির্বাচন<input id="photoFile" type="file" accept="image/png,image/jpeg,image/webp"></label><p class="muted tiny">JPG, PNG বা WebP; সর্বোচ্চ 5 MB।</p></div>
+          </div>
+
+          <div class="section-title section-gap"><div><p class="eyebrow">YOUR STORY</p><h2>Extra Information</h2></div><span class="step">05</span></div>
+          <p class="muted">নিজের মতো Title দিয়ে নতুন Section তৈরি করুন—যেমন Family Information, Hobbies, About Me ইত্যাদি।</p>
+          <div id="extraFields" class="dynamic-list"></div>
+          <button type="button" class="btn btn-outline" id="addExtra">+ নতুন Section যোগ করুন</button>
+
+          <div class="save-row"><p id="saveMessage" class="message" aria-live="polite"></p><button class="btn btn-primary" type="submit">Save Biodata</button></div>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer>Made with care <span>✦</span> Marriage Biodata</footer>
+  <script src="app.js"></script>
+</body>
+</html>
