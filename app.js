@@ -1,6 +1,6 @@
 // 1) Supabase project settings বসান
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const SUPABASE_URL = "https://cszliqgdjmpeqveuomna.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_OAUugMZbaw0xNjWTjwQy3g_FBIrQX8e";
 const supabaseReady = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR_") && !SUPABASE_ANON_KEY.includes("YOUR_");
 const db = supabaseReady ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const TABLE = "biodata";
